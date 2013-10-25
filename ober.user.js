@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        0.2.1
+// @version        0.2.2
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -142,6 +142,8 @@ function launchHTMLPlayer(video_link) {
   $.getScript('http://vjs.zencdn.net/c/video.js', function() {
       _V_('video').ready(function() {
         ext = video_link.split('.').pop();
+        console.log(ext);
+        console.log(video_link);
         player = this;
         player.src({
           url: video_link,
