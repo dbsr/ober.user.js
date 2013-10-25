@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        0.1.43
+// @version        0.1.44
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -170,12 +170,12 @@ function create_video_modal() {
 
 function launchVLC(link) {
   video_modal = create_video_modal();
-  console.log(video_modal);
   embed = document.createElement('embed');
   embed.setAttribute('width', VIDEO_PLAYER_WIDTH);
   embed.setAttribute('height', VIDEO_PLAYER_HEIGHT);
   embed.setAttribute('target', link);
   embed.setAttribute('id', 'video');
+  embed.setAttribute('type', 'application/x-vlc-plugin');
   document.body.appendChild(video_modal);
   $(embed).appendTo('#ober-video-modal');
 }
