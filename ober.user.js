@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        0.8
+// @version        0.9
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -91,6 +91,7 @@ function resolve(link, icon) {
         if(ext.match(/avi|flv|wmv|mp4|mkv/i)) {
           launchPlayer(resp.main_link);
         } else {
+          console.log('ext => ' + ext);
           window.open(resp.main_link);
         }
       });
