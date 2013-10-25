@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        0.7
+// @version        0.8
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -156,7 +156,7 @@ function create_video_modal(cb) {
     m = $('#ober-video-modal');
     xPos = event.clientX;
     yPos = event.clientY;
-    if(xPos > 940 || yPos > 350) {
+    if(xPos > 1040 || yPos > 450) {
       m.remove();
     }
   });
