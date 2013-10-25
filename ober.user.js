@@ -39,7 +39,8 @@ var  REAL_DEBRID_REGEX = '1fichier.com|1st-files.com|2shared.com|4shared.com|aet
         'position: absolute; left: 25%; top: 5%; width: 840px; height: 720px;' +
         'text-align: center; z-index: 1000; background-color: white;' +
         'text-align: center; padding: 10%;' +
-      '}';
+      '}' +
+      'a { cursor: pointer; ]';
     HOSTER_FILTER_IDS = '23,99,15,24,13,22,27,25,8,28,2,40,11,46,47,51,55,59,60,64,65,67,68,70,71,81,92,97,102';
 
 
@@ -92,7 +93,7 @@ function resolve(link, icon) {
         if(ext.match(/avi|flv|wmv|mp4|mkv/)) {
           launchPlayer(resp.main_link);
         } else {
-          window.open(resp.main_link, '_blank');
+          window.open(resp.main_link);
         }
       });
       styleIcon(icon, 'ok');
