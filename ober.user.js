@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        0.1.47
+// @version        0.1.5
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -126,7 +126,6 @@ function launchPlayer(video_link) {
 }
 
 function launchHTMLPlayer(video_link) {
-  video_modal = create_video_modal();
   link = document.createElement('link');
   link.setAttribute('href', 'http://vjs.zencdn.net/c/video-js.css');
   link.setAttribute('rel', 'stylesheet');
@@ -136,29 +135,38 @@ function launchHTMLPlayer(video_link) {
   video.setAttribute('width', VIDEO_PLAYER_WIDTH);
   video.setAttribute('height', VIDEO_PLAYER_HEIGHT);
   video.setAttribute('controls', 'auto');
-  video_modal.appendChild(link);
-  video_modal.appendChild(video);
-  document.body.appendChild(video_modal);
+  create_video_modal(function(video_modal) {
+    video_modal.appendChild(link);
+    video_modal.appendChild(video);
+  });
   $.getScript('http://vjs.zencdn.net/c/video.js', function() {
       _V_('video').ready(function() {
+        ext = video_link.split('.').pop();
         player = this;
-        player.src(video_link);
+        player.src({
+          url: video_link,
+          type: 'video/' + ext
+        });
         player.play();
       });
   });
 }
 
-function create_video_modal() {
+function create_video_modal(cb) {
   video_modal = document.createElement('div');
   video_modal.setAttribute('id', 'ober-video-modal');
-  close = document.createElement('a');
-  $(close).html('X');
-  $(close).click(function(event) {
-    event.preventDefault();
-    $('#ober-video-modal').remove();
+  cb(video_modal);
+  $(document.body).click(function(event) {
+    video_modal = $('#ober-video-modal');
+    xPos = event.clientX;
+    yPos = event.clientY;
+    if(video_modal.offsetLeft < xPos > video_modal.offsetLeft + video_modal.offsetWidth) {
+      if(video_modal.offsetTop < yPos > video_modal.offsetTop + video_modal.offsetHeight) {
+          video_modal.remove();
+      }
+    }
   });
-  video_modal.appendChild(close);
-  return video_modal;
+  document.body.appendChild(video_modal);
 }
 
 
