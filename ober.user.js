@@ -42,6 +42,8 @@ var  REAL_DEBRID_REGEX = '1fichier.com|1st-files.com|2shared.com|4shared.com|aet
       '}' +
       'a { cursor: pointer; ]';
     HOSTER_FILTER_IDS = '23,99,15,24,13,22,27,25,8,28,2,40,11,46,47,51,55,59,60,64,65,67,68,70,71,81,92,97,102';
+    VIDEO_PLAYER_WIDTH = 800;
+    VIDEO_PLAYER_HEIGHT = 600;
 
 
 $(function() {
@@ -135,8 +137,8 @@ function launchHTMLPlayer(video_link) {
   video = document.createElement('video');
   video.setAttribute('id', 'video');
   video.setAttribute('class', 'video-js vjs-default-skin');
-  video.setAttribute('width', '800');
-  video.setAttribute('height', '600');
+  video.setAttribute('width', VIDEO_PLAYER_WIDTH);
+  video.setAttribute('height', VIDEO_PLAYER_HEIGHT);
   video.setAttribute('controls', 'auto');
   video_modal.appendChild(link);
   video_modal.appendChild(video);
