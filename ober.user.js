@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        0.9
+// @version        1.0
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -184,12 +184,9 @@ function launchVLC(link) {
 function doFilesTube() {
   url = location.href;
   if(!url.match(/z=_/)) {
-    if(url.match(/hosting=/)) {
-      new_url = url.replace("hosting=", "hosting=" + HOSTER_FILTER_IDS);
-    } else {
-      new_url = url + "&hosting=" + HOSTER_FILTER_IDS;
-    }
-    window.location.href = new_url + "&z=_";
+    url = url.replace(/hosting=[0-9,]+/, '', url);
+    url += '&hosting=' + HOSTER_FILTER_IDS + '&z=_';
+    window.location.href = url;
   }
   modLinks();
 }
