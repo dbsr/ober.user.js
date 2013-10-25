@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        0.1
+// @version        0.1.1
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -30,7 +30,7 @@ var  REAL_DEBRID_REGEX = '1fichier.com|1st-files.com|2shared.com|4shared.com|aet
       '|uploaded.to|uploaded.net|ul.to|uploadhero.co|uploading.com|uptobox.co' +
       '|userporn.com|veevr.com|vimeo.com|vip-file.com|wat.tv|youporn.com|youtube.com';
     STYLESHEET  =
-      '.icon { display: inline-block; width: 1em; height: 1em;}' +
+      '.ober-icon { display: inline-block; width: 1em; height: 1em;}' +
       '.icon-unresolved { background-color: grey; }' +
       '.icon-resolving { background-color: orange; }' +
       '.icon-failed { background-color: red; }' +
@@ -79,7 +79,7 @@ function addIcon(a, onclick) {
 }
 
 function styleIcon(icon, rstatus) {
-  icon.setAttribute('class', 'icon icon-' + rstatus);
+  icon.setAttribute('class', 'ober-icon icon-' + rstatus);
 }
 
 function resolve(link, icon) {
