@@ -115,6 +115,8 @@ function unrestrict(host_link, cb) {
 
 function launchPlayer(video_link) {
   ext = video_link.split('.').pop();
+  if ext.match(/mkv|avi|mp4|wmv|mpg|mpeg|flv/) {
+        
   link = document.createElement('link');
   link.setAttribute('href', 'http://vjs.zencdn.net/c/video-js.css');
   link.setAttribute('rel', 'stylesheet');
@@ -143,6 +145,11 @@ function launchPlayer(video_link) {
         player.play();
       });
   });
+  } else {
+      window.open(video_link, '_blank');
+  }
+  }
+  }
 }
 
 function doFilesTube() {
