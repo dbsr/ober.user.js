@@ -5,8 +5,8 @@
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
-// @updateURL 
-// @downloadURL 
+// @updateURL      https://raw.github.com/dbsr/ober.user.js/master/ober.user.js
+// @downloadURL    https://raw.github.com/dbsr/ober.user.js/master/ober.user.js
 // @description
 // @include        *
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
