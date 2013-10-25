@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        1.0
+// @version        1.1
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -36,6 +36,7 @@ var  REAL_DEBRID_REGEX = '1fichier.com|1st-files.com|2shared.com|4shared.com|aet
       '.icon-failed { background-color: red; }' +
       '.icon-ok { background-color: green; }' +
       '#ober-video-modal { position: absolute; border: 10px solid white; top: 100px; left: 100px }' +
+      '#ober-modal-close { position: relative; display: inline-block; right: 0; top: 0; text-decoration: none; }' +
       'a { cursor: pointer; }';
     HOSTER_FILTER_IDS = '23,99,15,24,13,22,27,25,8,28,2,40,11,46,47,51,55,59,60,64,65,67,70,71,81,92,97,102';
     VIDEO_PLAYER_WIDTH = 800;
@@ -152,15 +153,8 @@ function launchHTMLPlayer(video_link) {
 function create_video_modal(cb) {
   video_modal = document.createElement('div');
   video_modal.setAttribute('id', 'ober-video-modal');
+  $(video_modal).append($('<a href="#" id="ober-modal-close">x</a>'));
   cb(video_modal);
-  $(document.body).click(function(event) {
-    m = $('#ober-video-modal');
-    xPos = event.clientX;
-    yPos = event.clientY;
-    if(xPos > 1040 || yPos > 450) {
-      m.remove();
-    }
-  });
   document.body.appendChild(video_modal);
 }
 
