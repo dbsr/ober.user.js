@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        0.1.45
+// @version        0.1.46
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -35,7 +35,7 @@ var  REAL_DEBRID_REGEX = '1fichier.com|1st-files.com|2shared.com|4shared.com|aet
       '.icon-resolving { background-color: orange; }' +
       '.icon-failed { background-color: red; }' +
       '.icon-ok { background-color: green; }' +
-      '#ober-video-modal { position: absolute; border: 10px solid black; }' +
+      '#ober-video-modal { position: absolute; border: 10px solid black; top: 0; left: 0 }' +
       'a { cursor: pointer; }';
     HOSTER_FILTER_IDS = '23,99,15,24,13,22,27,25,8,28,2,40,11,46,47,51,55,59,60,64,65,67,68,70,71,81,92,97,102';
     VIDEO_PLAYER_WIDTH = 800;
