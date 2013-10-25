@@ -88,7 +88,12 @@ function resolve(link, icon) {
     if(resp.error === 0) {
       $(icon).click(function(event) {
         event.preventDefault();
-        launchPlayer(resp.main_link);
+        ext = resp.main_link.split('.').pop();
+        if(ext.match(/avi|flv|wmv|mp4|mkv/)) {
+          launchPlayer(resp.main_link);
+        } else {
+          window.open(resp.main_link, '_blank');
+        }
       });
       styleIcon(icon, 'ok');
     } else {
@@ -114,27 +119,24 @@ function unrestrict(host_link, cb) {
 }
 
 function launchPlayer(video_link) {
-  ext = video_link.split('.').pop();
-  if ext.match(/mkv|avi|mp4|wmv|mpg|mpeg|flv/) {
-        
+  if(isVLCInstalled()) {
+    launchVLC(video_link);
+  } else {
+    launchHTMLPlayer(video_link);
+  }
+}
+
+function launchHTMLPlayer(video_link) {
+  video_modal = create_video_modal();
   link = document.createElement('link');
   link.setAttribute('href', 'http://vjs.zencdn.net/c/video-js.css');
   link.setAttribute('rel', 'stylesheet');
-  video_modal = document.createElement('div');
-  video_modal.setAttribute('id', 'ober-video-modal');
   video = document.createElement('video');
   video.setAttribute('id', 'video');
   video.setAttribute('class', 'video-js vjs-default-skin');
   video.setAttribute('width', '800');
   video.setAttribute('height', '600');
   video.setAttribute('controls', 'auto');
-  close = document.createElement('a');
-  $(close).html('X');
-  $(close).click(function(event) {
-    event.preventDefault();
-    $('#ober-video-modal').remove();
-  });
-  video_modal.appendChild(close);
   video_modal.appendChild(link);
   video_modal.appendChild(video);
   document.body.appendChild(video_modal);
@@ -145,12 +147,38 @@ function launchPlayer(video_link) {
         player.play();
       });
   });
-  } else {
-      window.open(video_link, '_blank');
-  }
-  }
-  }
 }
+
+function create_video_modal() {
+  video_modal = document.createElement('div');
+  video_modal.setAttribute('id', 'ober-video-modal');
+  close = document.createElement('a');
+  $(close).html('X');
+  $(close).click(function(event) {
+    event.preventDefault();
+    $('#ober-video-modal').remove();
+  });
+  video_modal.appendChild(close);
+  return video_modal;
+}
+
+
+
+
+function launchVLC(link) {
+  video_modal = create_video_modal();
+  embed = $('<embed />', {
+    type: 'application/x-vlc-plugin',
+    pluginspage: 'http://www.videolan.org',
+    height: VIDEO_PLAYER_HEIGHT,
+    width: VIDEO_PLAYER_WIDTH,
+    target: link,
+    id: 'video'});
+  video_modal.appendChild(embed);
+  document.body.appendChild(video_modal);
+}
+
+
 
 function doFilesTube() {
   url = location.href;
@@ -179,4 +207,13 @@ function modLinks() {
       });
     });
   });
+}
+
+function isVLCInstalled() {
+  for(i=0;i<navigator.plugins.length;i++) {
+    if(navigator.plugins[i].name.indexOf('VLC') !== -1) {
+      return true;
+    }
+  }
+  return false;
 }
