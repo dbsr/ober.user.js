@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        0.1.4
+// @version        0.1.41
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -170,15 +170,11 @@ function create_video_modal() {
 
 function launchVLC(link) {
   video_modal = create_video_modal();
-  embed = $('<embed />', {
-    type: 'application/x-vlc-plugin',
-    pluginspage: 'http://www.videolan.org',
-    height: VIDEO_PLAYER_HEIGHT,
-    width: VIDEO_PLAYER_WIDTH,
-    target: link,
-    id: 'video'});
-  video_modal.appendChild(embed);
-  document.body.appendChild(video_modal);
+  $('<object/>', { width: VIDEO_PLAYER_WIDTH, height: VIDEO_PLAYER_HEIGHT })
+    .append($('<embed/>', { width: VIDEO_PLAYER_WIDTH, height: VIDEO_PLAYER_HEIGHT,
+      target: link }))
+    .appendTo(video_modal)
+    .appendTo(document.body);
 }
 
 
