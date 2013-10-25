@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        1.2
+// @version        1.3
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -89,7 +89,7 @@ function resolve(link, icon) {
       $(icon).click(function(event) {
         event.preventDefault();
         ext = resp.main_link.split('.').pop();
-        if(ext.match(/avi|flv|wmv|mp4|mkv/i)) {
+        if(ext.match(/avi|flv|wmv|mp4|mkv|mpg|gp3/i)) {
           launchPlayer(resp.main_link);
         } else {
           console.log('ext => ' + ext);
@@ -153,7 +153,10 @@ function launchHTMLPlayer(video_link) {
 function create_video_modal(cb) {
   video_modal = document.createElement('div');
   video_modal.setAttribute('id', 'ober-video-modal');
-  $(video_modal).append($('<a href="#" id="ober-modal-close">x</a>'));
+  a = document.createElement('a');
+  a.setAttribute('id', 'ober-modal-close');
+  $(a).html('x');
+  video_moda.appendChild(a);
   cb(video_modal);
   document.body.appendChild(video_modal);
 }
