@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             ober
 // @name           ober
-// @version        1.8.1
+// @version        1.8.2
 // @namespace      
 // @author         dbsr
 // @description    Unrestricts and plays video files hosted on sites supported by real-debrid
@@ -35,7 +35,7 @@ var  REAL_DEBRID_REGEX = '1fichier.com|1st-files.com|2shared.com|4shared.com|aet
       '.icon-resolving { background-color: orange; }' +
       '.icon-failed { background-color: red; }' +
       '.icon-ok { background-color: green; }' +
-      '#ober-video-modal { position: absolute; border: 30px solid #eee; border-right: 25px solid #eee;  top: 100px; left: 100px; background-color: white; }' +
+      '#ober-video-modal { position: absolute; border: 30px solid black; border-right: 25px solid #eee; background-color: white; }' +
       '#ober-modal-close { float: right; position: relative; font-size: 2em; font-style: bold; top: -25px; right: -15px; }' +
       'a { cursor: pointer; }';
     HOSTER_FILTER_IDS = '23,99,15,24,13,22,27,25,8,28,2,40,11,46,47,51,55,59,60,64,65,67,70,71,81,92,97,102';
@@ -90,7 +90,7 @@ function resolve(link, icon) {
         event.preventDefault();
         ext = resp.main_link.split('.').pop();
         if(ext.match(/avi|flv|wmv|mp4|mkv|mpg|gp3|ogm|webm/i)) {
-          launchPlayer(resp.main_link);
+          launchPlayer(resp.main_link, icon);
         } else {
           console.log('ext => ' + ext);
           window.open(resp.main_link);
@@ -119,15 +119,15 @@ function unrestrict(host_link, cb) {
   });
 }
 
-function launchPlayer(video_link) {
+function launchPlayer(video_link, icon) {
   if(isVLCInstalled()) {
     launchVLC(video_link);
   } else {
-    launchHTMLPlayer(video_link);
+    launchHTMLPlayer(video_link, icon);
   }
 }
 
-function launchHTMLPlayer(video_link) {
+function launchHTMLPlayer(video_link, icon) {
   link = document.createElement('link');
   link.setAttribute('href', 'http://vjs.zencdn.net/c/video-js.css');
   link.setAttribute('rel', 'stylesheet');
@@ -142,6 +142,7 @@ function launchHTMLPlayer(video_link) {
   create_video_modal(function(video_modal) {
     video_modal.appendChild(link);
     video_modal.appendChild(video);
+    video_modal.setAttribute('style', 'top: ' + icon.offsetTop + '; left: ' + icon.offsetLeft + ';');
   });
   $.getScript('http://vjs.zencdn.net/c/video.js', function() {
       _V_('video-player').ready(function() {
@@ -151,6 +152,9 @@ function launchHTMLPlayer(video_link) {
 }
 
 function create_video_modal(cb) {
+  try {
+    $('#ober-video-modal').remove();
+  } catch(e) {}
   video_modal = document.createElement('div');
   video_modal.setAttribute('id', 'ober-video-modal');
   a = document.createElement('a');
