@@ -90,8 +90,7 @@ function resolve(link, icon) {
         event.preventDefault();
         ext = resp.main_link.split('.').pop();
         if(ext.match(/avi|flv|wmv|mp4|mkv|mpg|gp3|ogm|webm/i)) {
-          //launchPlayer(resp.main_link, {x: event.pageX, y: event.pageY});
-          window.open(resp.main_link);
+          launchPlayer(resp.main_link, {x: event.clientX, y: event.clientY});
         } else {
           console.log('ext => ' + ext);
           window.open(resp.main_link);
